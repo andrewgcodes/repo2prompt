@@ -1,15 +1,25 @@
 # repo2prompt
-Turn a Github Repo's contents into a big prompt for long-context models like Claude 3 Opus.
 
-<a target="_blank" href="https://colab.research.google.com/github/andrewgcodes/repo2prompt/blob/main/repo2prompt.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
+This is a simple package with minimal dependencies that turns a Github Repo's contents into a big prompt for long-context models.
 
-Super easy:
-You will need a Github repo URL (public) and a Github access token. You can also use this with private repos but your token will need to have those permissions.
+this work for repos containing rust, python, javascript containing via the following file types:
+'.py', '.ipynb', '.html', '.css', '.js', '.jsx', '.rst', '.md', '.rs'
 
-Within the build_directory_tree function, you can specify which file extensions should be included in the output.
+Example Usage:
 
-The output is saved to a .txt file with name [repo]-formatted-prompt.txt
+```python
+from repo2prompt.extraction import extract_repo
 
-By the way, Github is limited to 5,000 API requests per hour so if a bug happens, that might be why!
+extract_repo(github_url="https://github.com/vllm-project/vllm/tree/main", github_token="your_github_token")
+```
+
+Or 
+
+```python
+from repo2prompt.extraction import extract_repo
+
+extract_repo(github_url="https://github.com/vllm-project/vllm/tree/main") # os.getenv("GITHUB_TOKEN") used internally
+```
+
+an important thing to note, github only allows 5000 requests per hour, so be careful
+
